@@ -18,7 +18,15 @@ class UsersView(SwaggerView):
             "name": "password",
             "type": "string",
             "required": True,
+        },
+        {
+            "name": "file",
+            "type": "file",
+            "required": False,
         }
+    ]
+    consumes = [
+        "multipart/form-data"
     ]
     responses = {
         200: {
@@ -33,7 +41,7 @@ class UsersView(SwaggerView):
         Creating a new user.
 
         """
-       
+        print(self.request.form)
         return jsonify({'message': 'Ok'})
 
 app.add_url_rule(
@@ -41,3 +49,15 @@ app.add_url_rule(
     view_func=UsersView.as_view('create user'),
     methods=['POST']
 )
+from flask_restful import Api, Resource
+
+class CreateUser(Resource):
+    def get(self, username):
+        """
+        This examples uses FlaskRESTful Resource
+        It works also with swag_from, schemas and spec_dict
+        ---
+       
+        """
+        return {'username': username}, 200
+

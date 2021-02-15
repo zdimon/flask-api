@@ -24,5 +24,14 @@ db = create_db(app)
 migrate = Migrate(app, db)
 from apps.models.users import Users
 
+
+
+from flask_restful import Api, Resource
+from apps.routes.users import CreateUser
+api = Api(app)
+
+
 from flasgger import Swagger
 swagger = Swagger(app)
+
+api.add_resource(CreateUser, '/create')
